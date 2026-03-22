@@ -1,0 +1,44 @@
+:root {
+    margin-top: 1px;
+    margin-right: 1px;
+    margin-bottom: 1px;
+    margin-left: 1px;
+    padding-top: 1px;
+    padding-right: 1px;
+    padding-bottom: 1px;
+    padding-left: 1px;
+    flex-direction: column;
+    flex-shrink: 1;
+    justify-content: flex-start;
+}
+
+.TitleStyle {
+    font-size: 128px;
+    -unity-text-align: middle-center;
+}
+
+.TitleContainerStyle {
+    justify-content: center;
+    align-items: stretch;
+}
+
+.ButtonContainerStyle {
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.ButtonStyle {
+    font-size: 40px;
+    border-top-width: 6px;
+    border-right-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    flex-direction: column;
+    flex-basis: auto;
+    aspect-ratio: auto;
+    max-width: none;
+}
