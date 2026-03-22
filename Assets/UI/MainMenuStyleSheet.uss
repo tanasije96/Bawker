@@ -10,6 +10,7 @@
     flex-direction: column;
     flex-shrink: 1;
     justify-content: flex-start;
+    background-color: rgb(255, 228, 225);
 }
 
 .TitleStyle {
