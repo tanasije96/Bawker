@@ -107,6 +107,8 @@ public class GameManager : MonoBehaviour
     {
         timer.StopTimer();
         player.GetComponent<PlayerMovement>().FreezePlayer();
+        scoreManager.UpdateScoreByAmt(10);
+        scoreManager.UpdateScoreByAmt(Mathf.CeilToInt(timer.CurrentTime));
         InGameUIDocument.GetComponent<InGameUI>().UpdateScore(scoreManager.GetScore());
         RespawnPlayer();
         player.GetComponent<PlayerMovement>().UnFreezePlayer();
