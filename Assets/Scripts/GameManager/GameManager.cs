@@ -70,6 +70,10 @@ public class GameManager : MonoBehaviour
         MainMenuUIDocument.SetActive(false);
         GameOverUIDocument.SetActive(false);
         player.GetComponent<PlayerHealth>().ResetHealth();
+        scoreManager.ResetScore();
+        DestroyStaticPlayers();
+        ResetGoals();
+        currentGoalCount = 0;
         InGameUIDocument.SetActive(true);
         timer.ResetTimer();
         timer.StartTimer();
