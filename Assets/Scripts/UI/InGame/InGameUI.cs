@@ -17,9 +17,13 @@ public class InGameUI : MonoBehaviour
         timerBar = root.Q<ProgressBar>("TimerBar");
     }
 
-    public void UpdateUI(int currentHealth, int currentScore)
+    public void UpdateHealth(int currentHealth)
     {
         healthLabel.text = "Health: " + currentHealth;
+    }
+
+    public void UpdateScore(int currentScore)
+    {
         scoreLabel.text = "Score: " + currentScore;
     }
 

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject GameOverUIDocument;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject playerPrefab;
 
     private ScoreManager scoreManager;
     private Timer timer;
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
         MainMenuButton.OnMainMenuButtonClicked += HandleMainMenu;
         EnemyCollisionEvent.OnEnemyCollision += HandleEnemyCollision;
         Timer.OnTimerEnd += HandleEnemyCollision;
+        GoalReachedEvent.OnGoalReached += HandleGoalReached;
 
         scoreManager = ScoreManager.Instance;
         timer = Timer.Instance;
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
         MainMenuButton.OnMainMenuButtonClicked -= HandleMainMenu;
         EnemyCollisionEvent.OnEnemyCollision -= HandleEnemyCollision;
         Timer.OnTimerEnd -= HandleEnemyCollision;
+        GoalReachedEvent.OnGoalReached -= HandleGoalReached;
     }
 
     private void HandleStartGame()
@@ -73,19 +76,12 @@ public class GameManager : MonoBehaviour
 
     private void HandleEnemyCollision(GameObject enemy)
     {
-        //stop timer
         timer.StopTimer();
-        //disable player movement
-        player.GetComponent<PlayerMovement>().enabled = false;
-        //disable collider and rigid body
-        player.GetComponent<Collider>().enabled = false;
-        player.GetComponent<Rigidbody>().isKinematic = true;
+        player.GetComponent<PlayerMovement>().FreezePlayer();
         //play sound
         //play death anim
-        //lower player health
         player.GetComponent<PlayerHealth>().TakeDamage();
-        //update ui
-        InGameUIDocument.GetComponent<InGameUI>().UpdateUI(player.GetComponent<PlayerHealth>().GetHealthPoints(),scoreManager.GetScore());
+        InGameUIDocument.GetComponent<InGameUI>().UpdateHealth(player.GetComponent<PlayerHealth>().GetHealthPoints());
         //wait for anim to finish
         if (player.GetComponent<PlayerHealth>().GetHealthPoints() == 0)
         {
@@ -94,14 +90,26 @@ public class GameManager : MonoBehaviour
             GameOverUIDocument.SetActive(true);
         }
         RespawnPlayer();
-        //re-enable player movement
-        player.GetComponent<PlayerMovement>().enabled = true;
-        //e-enable collider and rigid body
-        player.GetComponent<Collider>().enabled = true;
-        player.GetComponent<Rigidbody>().isKinematic = false;
-        //Reset and Start timer
+        player.GetComponent<PlayerMovement>().UnFreezePlayer();
         timer.ResetTimer();
         timer.StartTimer();
+    }
+
+    private void HandleGoalReached(GameObject goal)
+    {
+        timer.StopTimer();
+        player.GetComponent<PlayerMovement>().FreezePlayer();
+        InGameUIDocument.GetComponent<InGameUI>().UpdateScore(scoreManager.GetScore());
+        RespawnPlayer();
+        player.GetComponent<PlayerMovement>().UnFreezePlayer();
+        timer.ResetTimer();
+        timer.StartTimer();
+        goal.GetComponent<Collider>().isTrigger = false;
+        goal.GetComponent<Collidable>().enabled = false;
+        GameObject staticPlayer = Instantiate(playerPrefab, goal.transform.position, goal.transform.rotation);
+        staticPlayer.GetComponent<PlayerMovement>().enabled = false;
+        staticPlayer.GetComponent<Collider>().enabled = false;
+        staticPlayer.GetComponent<Rigidbody>().isKinematic = false;
     }
 
     private void UnPauseGame()

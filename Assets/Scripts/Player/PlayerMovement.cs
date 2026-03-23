@@ -57,5 +57,19 @@ public class PlayerMovement : MonoBehaviour
 
         m_rigidbody.MovePosition(m_rigidbody.position + moveDir * RunSpeed * Time.deltaTime);
     }
+
+    public void FreezePlayer()
+    {
+        enabled = false;
+        GetComponent<Collider>().enabled = false;
+        GetComponent<Rigidbody>().isKinematic = true;
+    }
+
+    public void UnFreezePlayer()
+    {
+        enabled = true;
+        GetComponent<Collider>().enabled = true;
+        GetComponent<Rigidbody>().isKinematic = false;
+    }
     
 }
