@@ -14,7 +14,7 @@
 }
 
 .TitleStyle {
-    font-size: 128px;
+    font-size: 300%;
     -unity-text-align: middle-center;
 }
 
@@ -29,11 +29,11 @@
 }
 
 .ButtonStyle {
-    font-size: 40px;
-    border-top-width: 6px;
-    border-right-width: 6px;
-    border-bottom-width: 6px;
-    border-left-width: 6px;
+    font-size: 100%;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
