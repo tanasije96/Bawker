@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject InGameUIDocument;
     [SerializeField] private GameObject GameOverUIDocument;
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private GameObject player;
 
     private ScoreManager scoreManager;
 
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
         UnPauseGame();
     }
 
-    private void HandleEnemyCollision(GameObject player)
+    private void HandleEnemyCollision(GameObject enemy)
     {
         //disable player movement
         player.GetComponent<PlayerMovement>().enabled = false;
@@ -61,7 +62,11 @@ public class GameManager : MonoBehaviour
         //wait for anim to finish
         //respawn player
         Respawn(player);
-
+        //re-enable player movement
+        player.GetComponent<PlayerMovement>().enabled = true;
+        //e-enable collider and rigid body
+        player.GetComponent<Collider>().enabled = true;
+        player.GetComponent<Rigidbody>().isKinematic = false;
     }
 
     private void UnPauseGame()

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2697537434214029268}
   - component: {fileID: 8777510632827841690}
   - component: {fileID: 647591710181509126}
+  - component: {fileID: 2716181768959259563}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -126,3 +127,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileMovement
   speed: 3
+--- !u!114 &2716181768959259563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6369269851580818723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9f44de1c30d134197054030bc49b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Collidable
+  tagName: Player
+  triggerEvent: {fileID: 11400000, guid: 34ed5159642305449aabad1a93e5c792, type: 2}
