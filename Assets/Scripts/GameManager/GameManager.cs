@@ -24,11 +24,13 @@ public class GameManager : MonoBehaviour
     void OnEnable()
     {
         StartGameButton.OnStartButtonClicked += HandleStartGame;
+        EnemyCollisionEvent.OnEnemyCollision += HandleEnemyCollision;
     }
 
     void OnDisable()
     {
         StartGameButton.OnStartButtonClicked -= HandleStartGame;
+        EnemyCollisionEvent.OnEnemyCollision -= HandleEnemyCollision;
     }
 
     private void HandleStartGame()
@@ -36,6 +38,17 @@ public class GameManager : MonoBehaviour
         MainMenuUIDocument.SetActive(false);
         InGameUIDocument.SetActive(true);
         UnPauseGame();
+    }
+
+    private void HandleEnemyCollision(GameObject player)
+    {
+        //disable player movement
+        //play sound
+        //play death anim
+        //lower player health
+        //update score ui
+        //wait for anim to finish
+        //respawn player
     }
 
     private void UnPauseGame()
