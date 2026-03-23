@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;
 
     private ScoreManager scoreManager;
+    private Timer timer;
 
     void Awake()
     {
@@ -26,13 +27,23 @@ public class GameManager : MonoBehaviour
         PauseGame();
     }
 
+    void Update()
+    {
+        if (timer.IsRunning)
+        {
+            InGameUIDocument.GetComponent<InGameUI>().UpdateTimer(timer.CurrentTime);   
+        }
+    }
+
     void OnEnable()
     {
         StartGameButton.OnStartButtonClicked += HandleStartGame;
         MainMenuButton.OnMainMenuButtonClicked += HandleMainMenu;
         EnemyCollisionEvent.OnEnemyCollision += HandleEnemyCollision;
+        Timer.OnTimerEnd += HandleEnemyCollision;
 
         scoreManager = ScoreManager.Instance;
+        timer = Timer.Instance;
     }
 
     void OnDisable()
@@ -40,6 +51,7 @@ public class GameManager : MonoBehaviour
         StartGameButton.OnStartButtonClicked -= HandleStartGame;
         MainMenuButton.OnMainMenuButtonClicked -= HandleMainMenu;
         EnemyCollisionEvent.OnEnemyCollision -= HandleEnemyCollision;
+        Timer.OnTimerEnd -= HandleEnemyCollision;
     }
 
     private void HandleStartGame()
@@ -48,6 +60,8 @@ public class GameManager : MonoBehaviour
         GameOverUIDocument.SetActive(false);
         player.GetComponent<PlayerHealth>().ResetHealth();
         InGameUIDocument.SetActive(true);
+        timer.ResetTimer();
+        timer.StartTimer();
         UnPauseGame();
     }
 
@@ -59,6 +73,8 @@ public class GameManager : MonoBehaviour
 
     private void HandleEnemyCollision(GameObject enemy)
     {
+        //stop timer
+        timer.StopTimer();
         //disable player movement
         player.GetComponent<PlayerMovement>().enabled = false;
         //disable collider and rigid body
@@ -84,6 +100,9 @@ public class GameManager : MonoBehaviour
         //e-enable collider and rigid body
         player.GetComponent<Collider>().enabled = true;
         player.GetComponent<Rigidbody>().isKinematic = false;
+        //Reset and Start timer
+        timer.ResetTimer();
+        timer.StartTimer();
     }
 
     private void UnPauseGame()
