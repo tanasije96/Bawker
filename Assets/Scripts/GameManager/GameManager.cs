@@ -15,6 +15,12 @@ public class GameManager : MonoBehaviour
     private ScoreManager scoreManager;
     private Timer timer;
 
+    private int totalGoalCount;
+    private int currentGoalCount = 0;
+
+    GameObject[] goals;
+
+
     void Awake()
     {
         if (Instance == null)
@@ -26,6 +32,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         PauseGame();
+        goals = GameObject.FindGameObjectsWithTag("Goal");
+        totalGoalCount = goals.Length;
     }
 
     void Update()
@@ -110,6 +118,14 @@ public class GameManager : MonoBehaviour
         staticPlayer.GetComponent<PlayerMovement>().enabled = false;
         staticPlayer.GetComponent<Collider>().enabled = false;
         staticPlayer.GetComponent<Rigidbody>().isKinematic = false;
+        staticPlayer.tag = "StaticPlayer";
+        currentGoalCount++;
+        if (currentGoalCount == totalGoalCount)
+        {
+            DestroyStaticPlayers();
+            ResetGoals();
+            currentGoalCount = 0;
+        }
     }
 
     private void UnPauseGame()
@@ -126,5 +142,26 @@ public class GameManager : MonoBehaviour
     {
         player.transform.position = spawnPoint.position;
         player.transform.rotation = spawnPoint.rotation;
+    }
+
+    private void DestroyStaticPlayers()
+    {
+        GameObject[] staticPlayers = GameObject.FindGameObjectsWithTag("StaticPlayer");
+
+        foreach (GameObject staticPlayer in staticPlayers)
+        {
+            Destroy(staticPlayer);
+        }
+    }
+
+    private void ResetGoals()
+    {
+        GameObject[] goals = GameObject.FindGameObjectsWithTag("Goal");
+
+        foreach (GameObject goal in goals)
+        {
+            goal.GetComponent<Collider>().isTrigger = true;
+            goal.GetComponent<Collidable>().enabled = true;
+        }
     }
 }
