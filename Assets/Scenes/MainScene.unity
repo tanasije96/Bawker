@@ -603,7 +603,7 @@ Transform:
   m_GameObject: {fileID: 1168622014}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -854,6 +854,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1766180626}
   - component: {fileID: 1766180625}
+  - component: {fileID: 1766180628}
+  - component: {fileID: 1766180627}
   m_Layer: 5
   m_Name: GameOverUIDocument
   m_TagString: Untagged
@@ -899,6 +901,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 783448991}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1766180627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766180624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1f4abe84abfa347a3c97ff2fdb5c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenuButton
+--- !u!114 &1766180628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766180624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: defb587290b374d4eb767ed3dff02b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartGameButton
 --- !u!1 &1820306689
 GameObject:
   m_ObjectHideFlags: 0

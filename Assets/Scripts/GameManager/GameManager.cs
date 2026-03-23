@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     void OnEnable()
     {
         StartGameButton.OnStartButtonClicked += HandleStartGame;
+        MainMenuButton.OnMainMenuButtonClicked += HandleMainMenu;
         EnemyCollisionEvent.OnEnemyCollision += HandleEnemyCollision;
 
         scoreManager = ScoreManager.Instance;
@@ -36,14 +37,23 @@ public class GameManager : MonoBehaviour
     void OnDisable()
     {
         StartGameButton.OnStartButtonClicked -= HandleStartGame;
+        MainMenuButton.OnMainMenuButtonClicked -= HandleMainMenu;
         EnemyCollisionEvent.OnEnemyCollision -= HandleEnemyCollision;
     }
 
     private void HandleStartGame()
     {
         MainMenuUIDocument.SetActive(false);
+        GameOverUIDocument.SetActive(false);
+        player.GetComponent<PlayerHealth>().ResetHealth();
         InGameUIDocument.SetActive(true);
         UnPauseGame();
+    }
+
+    private void HandleMainMenu()
+    {
+        MainMenuUIDocument.SetActive(true);
+        GameOverUIDocument.SetActive(false);
     }
 
     private void HandleEnemyCollision(GameObject enemy)
@@ -60,22 +70,19 @@ public class GameManager : MonoBehaviour
         //update ui
         InGameUIDocument.GetComponent<InGameUI>().UpdateUI(player.GetComponent<PlayerHealth>().GetHealthPoints(),scoreManager.GetScore());
         //wait for anim to finish
-        if (player.GetComponent<PlayerHealth>().GetHealthPoints() > 0)
-        {
-            //respawn player
-            Respawn(player);
-            //re-enable player movement
-            player.GetComponent<PlayerMovement>().enabled = true;
-            //e-enable collider and rigid body
-            player.GetComponent<Collider>().enabled = true;
-            player.GetComponent<Rigidbody>().isKinematic = false;
-        }
-        else
+        if (player.GetComponent<PlayerHealth>().GetHealthPoints() == 0)
         {
             PauseGame();
             InGameUIDocument.SetActive(false);
             GameOverUIDocument.SetActive(true);
         }
+        //respawn player
+        Respawn(player);
+        //re-enable player movement
+        player.GetComponent<PlayerMovement>().enabled = true;
+        //e-enable collider and rigid body
+        player.GetComponent<Collider>().enabled = true;
+        player.GetComponent<Rigidbody>().isKinematic = false;
     }
 
     private void UnPauseGame()
@@ -91,5 +98,6 @@ public class GameManager : MonoBehaviour
     private void Respawn(GameObject player)
     {
         player.transform.position = spawnPoint.position;
+        player.transform.rotation = spawnPoint.rotation;
     }
 }
