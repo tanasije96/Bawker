@@ -5,7 +5,7 @@ public class InGameUI : MonoBehaviour
 {
     Label healthLabel;
     Label scoreLabel;
-    Label timerLabel;
+    ProgressBar timerBar;
     
     private void OnEnable()
     {
@@ -14,8 +14,7 @@ public class InGameUI : MonoBehaviour
 
         healthLabel = root.Q<Label>("HealthLabel");
         scoreLabel = root.Q<Label>("ScoreLabel");
-        timerLabel = root.Q<Label>("TimerLabel");
-
+        timerBar = root.Q<ProgressBar>("TimerBar");
     }
 
     public void UpdateUI(int currentHealth, int currentScore)
@@ -24,8 +23,8 @@ public class InGameUI : MonoBehaviour
         scoreLabel.text = "Score: " + currentScore;
     }
 
-    public void UpdateTimer(float currentTime)
+    public void UpdateTimer(float currentTimeLeft)
     {
-        timerLabel.text = "Time Left: " + currentTime;
+        timerBar.value = currentTimeLeft;
     }
 }

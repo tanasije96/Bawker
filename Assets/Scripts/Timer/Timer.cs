@@ -11,7 +11,7 @@ public class Timer : MonoBehaviour
     public bool IsRunning => isRunning;
 
     public float CurrentTime => currentTime;
-    public float NormalizedTime => currentTime / maxTime;
+    public float NormalizedTime => currentTime / maxTime * 100f;
     public static event Action<GameObject> OnTimerEnd;
 
     public static Timer Instance;

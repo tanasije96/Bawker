@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     {
         if (timer.IsRunning)
         {
-            InGameUIDocument.GetComponent<InGameUI>().UpdateTimer(timer.CurrentTime);   
+            InGameUIDocument.GetComponent<InGameUI>().UpdateTimer(timer.NormalizedTime);   
         }
     }
 
@@ -93,8 +93,7 @@ public class GameManager : MonoBehaviour
             InGameUIDocument.SetActive(false);
             GameOverUIDocument.SetActive(true);
         }
-        //respawn player
-        Respawn(player);
+        RespawnPlayer();
         //re-enable player movement
         player.GetComponent<PlayerMovement>().enabled = true;
         //e-enable collider and rigid body
@@ -115,7 +114,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    private void Respawn(GameObject player)
+    private void RespawnPlayer()
     {
         player.transform.position = spawnPoint.position;
         player.transform.rotation = spawnPoint.rotation;
