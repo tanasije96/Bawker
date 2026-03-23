@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerRun : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private InputActionAsset InputActions;
 
