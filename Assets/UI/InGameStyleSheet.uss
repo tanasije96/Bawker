@@ -1,0 +1,6 @@
+:root {
+}
+
+.LabelStyle {
+    font-size: 30px;
+}
