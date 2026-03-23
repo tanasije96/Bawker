@@ -60,13 +60,22 @@ public class GameManager : MonoBehaviour
         //update ui
         InGameUIDocument.GetComponent<InGameUI>().UpdateUI(player.GetComponent<PlayerHealth>().GetHealthPoints(),scoreManager.GetScore());
         //wait for anim to finish
-        //respawn player
-        Respawn(player);
-        //re-enable player movement
-        player.GetComponent<PlayerMovement>().enabled = true;
-        //e-enable collider and rigid body
-        player.GetComponent<Collider>().enabled = true;
-        player.GetComponent<Rigidbody>().isKinematic = false;
+        if (player.GetComponent<PlayerHealth>().GetHealthPoints() > 0)
+        {
+            //respawn player
+            Respawn(player);
+            //re-enable player movement
+            player.GetComponent<PlayerMovement>().enabled = true;
+            //e-enable collider and rigid body
+            player.GetComponent<Collider>().enabled = true;
+            player.GetComponent<Rigidbody>().isKinematic = false;
+        }
+        else
+        {
+            PauseGame();
+            InGameUIDocument.SetActive(false);
+            GameOverUIDocument.SetActive(true);
+        }
     }
 
     private void UnPauseGame()
