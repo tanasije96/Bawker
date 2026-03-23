@@ -3,9 +3,9 @@ using UnityEngine.UIElements;
 
 public class InGameUI : MonoBehaviour
 {
-    Label healthLabel;
-    Label scoreLabel;
-    ProgressBar timerBar;
+    private Label healthLabel;
+    private Label scoreLabel;
+    private ProgressBar timerBar;
     
     private void OnEnable()
     {

@@ -43,3 +43,14 @@
     aspect-ratio: auto;
     max-width: none;
 }
+
+.LabelStyle {
+    -unity-font-style: bold;
+    font-size: 110%;
+}
+
+.LabelContainerStyle {
+    align-items: center;
+    justify-content: flex-start;
+    align-self: auto;
+}

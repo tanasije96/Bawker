@@ -1002,6 +1002,7 @@ GameObject:
   - component: {fileID: 1766180625}
   - component: {fileID: 1766180628}
   - component: {fileID: 1766180627}
+  - component: {fileID: 1766180629}
   m_Layer: 5
   m_Name: GameOverUIDocument
   m_TagString: Untagged
@@ -1071,6 +1072,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: defb587290b374d4eb767ed3dff02b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartGameButton
+--- !u!114 &1766180629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766180624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93b3a5e53c4bbd4987dbddacd0a154a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FinalScoreLabel
 --- !u!1 &1820306689
 GameObject:
   m_ObjectHideFlags: 0

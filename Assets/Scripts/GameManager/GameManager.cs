@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
             PauseGame();
             InGameUIDocument.SetActive(false);
             GameOverUIDocument.SetActive(true);
+            GameOverUIDocument.GetComponent<FinalScoreLabel>().UpdateScore(scoreManager.GetScore());
         }
         RespawnPlayer();
         player.GetComponent<PlayerMovement>().UnFreezePlayer();
