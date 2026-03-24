@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Goal
   - StaticPlayer
+  - Water
   layers:
   - Default
   - TransparentFX

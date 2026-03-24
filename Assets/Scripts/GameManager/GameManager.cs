@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         EnemyCollisionEvent.OnEnemyCollision += HandleLoseLife;
         Timer.OnTimerEnd += HandleLoseLife;
         GoalReachedEvent.OnGoalReached += HandleGoalReached;
+        WaterCollisionEvent.OnWaterCollision += HandleLoseLife;
 
         playerHealth = player.GetComponent<PlayerHealth>();
         playerMovement = player.GetComponent<PlayerMovement>();
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
         EnemyCollisionEvent.OnEnemyCollision -= HandleLoseLife;
         Timer.OnTimerEnd -= HandleLoseLife;
         GoalReachedEvent.OnGoalReached -= HandleGoalReached;
+        WaterCollisionEvent.OnWaterCollision -= HandleLoseLife;
     }
 
     // Event Handlers
