@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleLoseLife(GameObject enemy)
     {
-        soundManager.PlayLoseLife();
+        soundManager.PlayFailure();
         timer.StopTimer();
         playerMovement.FreezePlayer();
         //play death anim
@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleGoalReached(GameObject goal)
     {
+        soundManager.PlaySuccess();
         timer.StopTimer();
         playerMovement.FreezePlayer();
         UpdateInGameScore();

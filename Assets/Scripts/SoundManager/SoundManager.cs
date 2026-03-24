@@ -4,7 +4,8 @@ public class SoundManager : MonoBehaviour
 {
     private AudioSource audioSource;
     private Coroutine musicCoroutine;
-    [SerializeField] private AudioClip loseLifeClip;
+    [SerializeField] private AudioClip failureClip;
+    [SerializeField] private AudioClip successClip;
 
     public static SoundManager Instance;
 
@@ -21,14 +22,19 @@ public class SoundManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void PlayLoseLife()
+    public void PlayFailure()
     {
-        audioSource.PlayOneShot(loseLifeClip);
+        audioSource.PlayOneShot(failureClip);
     }
 
-    public float GetLoseLifeClipLength()
+    public float GetFailureClipLength()
     {
-        return loseLifeClip.length;
+        return failureClip.length;
+    }
+
+    public void PlaySuccess()
+    {
+        audioSource.PlayOneShot(successClip);
     }
     
 }
