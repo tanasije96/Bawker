@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     private ScoreManager scoreManager;
     private Timer timer;
+    private SoundManager soundManager;
 
     private int totalGoalCount;
     private int currentGoalCount = 0;
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
 
         scoreManager = ScoreManager.Instance;
         timer = Timer.Instance;
+        soundManager = SoundManager.Instance;
     }
 
     void OnDisable()
@@ -88,13 +90,14 @@ public class GameManager : MonoBehaviour
 
     private void HandleEnemyCollision(GameObject enemy)
     {
+        soundManager.PlayLoseLife();
         timer.StopTimer();
         player.GetComponent<PlayerMovement>().FreezePlayer();
         //play sound
         //play death anim
         player.GetComponent<PlayerHealth>().TakeDamage();
         InGameUIDocument.GetComponent<InGameUI>().UpdateHealth(player.GetComponent<PlayerHealth>().GetHealthPoints());
-        //wait for anim to finish
+        //wait for sound to finish
         if (player.GetComponent<PlayerHealth>().GetHealthPoints() == 0)
         {
             PauseGame();
