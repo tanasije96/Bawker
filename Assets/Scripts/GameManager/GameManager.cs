@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject playerPrefab;
 
+    private PlayerHealth playerHealth;
+    private PlayerMovement playerMovement;
     private ScoreManager scoreManager;
     private Timer timer;
     private SoundManager soundManager;
@@ -19,8 +21,7 @@ public class GameManager : MonoBehaviour
     private int totalGoalCount;
     private int currentGoalCount = 0;
 
-    GameObject[] goals;
-
+    private GameObject[] goals;
 
     void Awake()
     {
@@ -49,9 +50,12 @@ public class GameManager : MonoBehaviour
     {
         StartGameButton.OnStartButtonClicked += HandleStartGame;
         MainMenuButton.OnMainMenuButtonClicked += HandleMainMenu;
-        EnemyCollisionEvent.OnEnemyCollision += HandleEnemyCollision;
-        Timer.OnTimerEnd += HandleEnemyCollision;
+        EnemyCollisionEvent.OnEnemyCollision += HandleLoseLife;
+        Timer.OnTimerEnd += HandleLoseLife;
         GoalReachedEvent.OnGoalReached += HandleGoalReached;
+
+        playerHealth = player.GetComponent<PlayerHealth>();
+        playerMovement = player.GetComponent<PlayerMovement>();
 
         scoreManager = ScoreManager.Instance;
         timer = Timer.Instance;
@@ -62,23 +66,19 @@ public class GameManager : MonoBehaviour
     {
         StartGameButton.OnStartButtonClicked -= HandleStartGame;
         MainMenuButton.OnMainMenuButtonClicked -= HandleMainMenu;
-        EnemyCollisionEvent.OnEnemyCollision -= HandleEnemyCollision;
-        Timer.OnTimerEnd -= HandleEnemyCollision;
+        EnemyCollisionEvent.OnEnemyCollision -= HandleLoseLife;
+        Timer.OnTimerEnd -= HandleLoseLife;
         GoalReachedEvent.OnGoalReached -= HandleGoalReached;
     }
 
+    // Event Handlers
+
     private void HandleStartGame()
     {
+        ResetGame();
+        InGameUIDocument.SetActive(true);
         MainMenuUIDocument.SetActive(false);
         GameOverUIDocument.SetActive(false);
-        player.GetComponent<PlayerHealth>().ResetHealth();
-        scoreManager.ResetScore();
-        DestroyStaticPlayers();
-        ResetGoals();
-        currentGoalCount = 0;
-        InGameUIDocument.SetActive(true);
-        timer.ResetTimer();
-        timer.StartTimer();
         UnPauseGame();
     }
 
@@ -88,25 +88,24 @@ public class GameManager : MonoBehaviour
         GameOverUIDocument.SetActive(false);
     }
 
-    private void HandleEnemyCollision(GameObject enemy)
+    private void HandleLoseLife(GameObject enemy)
     {
         soundManager.PlayLoseLife();
         timer.StopTimer();
-        player.GetComponent<PlayerMovement>().FreezePlayer();
-        //play sound
+        playerMovement.FreezePlayer();
         //play death anim
-        player.GetComponent<PlayerHealth>().TakeDamage();
-        InGameUIDocument.GetComponent<InGameUI>().UpdateHealth(player.GetComponent<PlayerHealth>().GetHealthPoints());
+        playerHealth.TakeDamage();
+        InGameUIDocument.GetComponent<InGameUI>().UpdateHealth(playerHealth.GetHealthPoints());
         //wait for sound to finish
-        if (player.GetComponent<PlayerHealth>().GetHealthPoints() == 0)
+        if (playerHealth.GetHealthPoints() == 0)
         {
             PauseGame();
-            InGameUIDocument.SetActive(false);
             GameOverUIDocument.SetActive(true);
+            InGameUIDocument.SetActive(false);
             GameOverUIDocument.GetComponent<FinalScoreLabel>().UpdateScore(scoreManager.GetScore());
         }
         RespawnPlayer();
-        player.GetComponent<PlayerMovement>().UnFreezePlayer();
+        playerMovement.UnFreezePlayer();
         timer.ResetTimer();
         timer.StartTimer();
     }
@@ -114,29 +113,23 @@ public class GameManager : MonoBehaviour
     private void HandleGoalReached(GameObject goal)
     {
         timer.StopTimer();
-        player.GetComponent<PlayerMovement>().FreezePlayer();
-        scoreManager.UpdateScoreByAmt(10);
-        scoreManager.UpdateScoreByAmt(Mathf.CeilToInt(timer.CurrentTime));
-        InGameUIDocument.GetComponent<InGameUI>().UpdateScore(scoreManager.GetScore());
+        playerMovement.FreezePlayer();
+        UpdateInGameScore();
         RespawnPlayer();
-        player.GetComponent<PlayerMovement>().UnFreezePlayer();
+        playerMovement.UnFreezePlayer();
         timer.ResetTimer();
         timer.StartTimer();
-        goal.GetComponent<Collider>().isTrigger = false;
-        goal.GetComponent<Collidable>().enabled = false;
-        GameObject staticPlayer = Instantiate(playerPrefab, goal.transform.position, goal.transform.rotation);
-        staticPlayer.GetComponent<PlayerMovement>().enabled = false;
-        staticPlayer.GetComponent<Collider>().enabled = false;
-        staticPlayer.GetComponent<Rigidbody>().isKinematic = false;
-        staticPlayer.tag = "StaticPlayer";
+        DeactivateGoal(goal);
         currentGoalCount++;
+        SpawnStaticPlayer(goal);
         if (currentGoalCount == totalGoalCount)
         {
             DestroyStaticPlayers();
             ResetGoals();
-            currentGoalCount = 0;
         }
     }
+
+    // Private Helper Functions
 
     private void UnPauseGame()
     {
@@ -173,5 +166,39 @@ public class GameManager : MonoBehaviour
             goal.GetComponent<Collider>().isTrigger = true;
             goal.GetComponent<Collidable>().enabled = true;
         }
+
+        currentGoalCount = 0;
+    }
+
+    private void ResetGame()
+    {
+        playerHealth.ResetHealth();
+        scoreManager.ResetScore();
+        DestroyStaticPlayers();
+        ResetGoals();
+        timer.ResetTimer();
+        timer.StartTimer();
+    }
+
+    private void UpdateInGameScore()
+    {
+        scoreManager.UpdateScoreByAmt(10);
+        scoreManager.UpdateScoreByAmt(Mathf.CeilToInt(timer.CurrentTime));
+        InGameUIDocument.GetComponent<InGameUI>().UpdateScore(scoreManager.GetScore());
+    }
+
+    private void SpawnStaticPlayer(GameObject goal)
+    {
+        GameObject staticPlayer = Instantiate(playerPrefab, goal.transform.position, goal.transform.rotation);
+        staticPlayer.GetComponent<PlayerMovement>().enabled = false;
+        staticPlayer.GetComponent<Collider>().enabled = false;
+        staticPlayer.GetComponent<Rigidbody>().isKinematic = false;
+        staticPlayer.tag = "StaticPlayer";
+    }
+
+    private void DeactivateGoal(GameObject goal)
+    {
+        goal.GetComponent<Collider>().isTrigger = false;
+        goal.GetComponent<Collidable>().enabled = false;
     }
 }
