@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     //private Animator m_animator;
     private InputAction m_moveAction;
+    private Animator m_animator;
 
     private Vector2 m_moveAmt;
     private Rigidbody m_rigidbody;
@@ -27,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     {
         m_moveAction = InputSystem.actions.FindAction("Move");
 
-        //m_animator = GetComponent<Animator>();
+        m_animator = GetComponent<Animator>();
         m_rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -43,11 +44,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Running()
     {
-        //m_animator.SetFloat("Speed", m_moveAmt.y);
-
         Vector3 moveDir = Vector3.forward * m_moveAmt.y + Vector3.right * m_moveAmt.x;
         moveDir.Normalize();
-        //m_animator.SetFloat("Speed",moveDir.sqrMagnitude);
+        m_animator.SetFloat("Speed",moveDir.sqrMagnitude);
 
         if (moveDir.sqrMagnitude > 0.01f)
         {

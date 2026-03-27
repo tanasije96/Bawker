@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerHealth playerHealth;
     private PlayerMovement playerMovement;
+    private Animator playerAnimator;
     private ScoreManager scoreManager;
     private Timer timer;
     private SoundManager soundManager;
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
 
         playerHealth = player.GetComponent<PlayerHealth>();
         playerMovement = player.GetComponent<PlayerMovement>();
+        playerAnimator = player.GetComponent<Animator>();
 
         scoreManager = ScoreManager.Instance;
         timer = Timer.Instance;
@@ -94,10 +96,10 @@ public class GameManager : MonoBehaviour
     {
         soundManager.PlayFailure();
         timer.StopTimer();
-        playerMovement.FreezePlayer();
-        //play death anim
+        playerAnimator.SetTrigger("Damage Taken");
         playerHealth.TakeDamage();
         InGameUIDocument.GetComponent<InGameUI>().UpdateHealth(playerHealth.GetHealthPoints());
+        playerMovement.FreezePlayer();
         //wait for sound to finish
         if (playerHealth.GetHealthPoints() == 0)
         {
@@ -195,7 +197,7 @@ public class GameManager : MonoBehaviour
         GameObject staticPlayer = Instantiate(playerPrefab, goal.transform.position, goal.transform.rotation);
         staticPlayer.GetComponent<PlayerMovement>().enabled = false;
         staticPlayer.GetComponent<Collider>().enabled = false;
-        staticPlayer.GetComponent<Rigidbody>().isKinematic = false;
+        staticPlayer.GetComponent<Rigidbody>().isKinematic = true;
         staticPlayer.tag = "StaticPlayer";
     }
 
