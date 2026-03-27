@@ -181,6 +181,8 @@ public class GameManager : MonoBehaviour
         scoreManager.ResetScore();
         DestroyStaticPlayers();
         ResetGoals();
+        playerAnimator.Rebind();
+        playerAnimator.Update(0f);
         timer.ResetTimer();
         timer.StartTimer();
     }
