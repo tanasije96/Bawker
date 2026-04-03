@@ -16,6 +16,16 @@
 .TitleStyle {
     font-size: 300%;
     -unity-text-align: middle-center;
+    -unity-font-definition: url("project://database/Assets/UI/Font/PopHappinessStd-EB.ttf?fileID=12800000&guid=8e0ada50739e1a34ab20ba47b4ca59f0&type=3#PopHappinessStd-EB");
+    -unity-font-style: normal;
+    color: rgb(91, 188, 22);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(11, 11, 11);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
 }
 
 .TitleContainerStyle {
@@ -30,18 +40,40 @@
 
 .ButtonStyle {
     font-size: 100%;
-    border-top-width: 3px;
-    border-right-width: 3px;
-    border-bottom-width: 3px;
-    border-left-width: 3px;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-    border-bottom-left-radius: 12px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
     flex-direction: column;
     flex-basis: auto;
     aspect-ratio: auto;
     max-width: none;
+    background-image: url("project://database/Assets/Art/2D%20Casual%20UI/Sprite/GUI.png?fileID=21300022&guid=1eaee135ce037439d925cee5e41ce026&type=3#GUI_11");
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.ButtonStyle:active {
+    font-size: 100%;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    flex-direction: column;
+    flex-basis: auto;
+    aspect-ratio: auto;
+    max-width: none;
+    background-image: url("project://database/Assets/Art/2D%20Casual%20UI/Sprite/GUI.png?fileID=21300020&guid=1eaee135ce037439d925cee5e41ce026&type=3#GUI_10");
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
 .LabelStyle {
