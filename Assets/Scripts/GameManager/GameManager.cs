@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private ScoreManager scoreManager;
     private Timer timer;
     private SoundManager soundManager;
+    private MusicManager musicManager;
 
     private int totalGoalCount;
     private int currentGoalCount = 0;
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
         scoreManager = ScoreManager.Instance;
         timer = Timer.Instance;
         soundManager = SoundManager.Instance;
+        musicManager = MusicManager.Instance;
     }
 
     void OnDisable()
@@ -79,6 +81,8 @@ public class GameManager : MonoBehaviour
 
     private void HandleStartGame()
     {
+        soundManager.PlayButtonClick();
+        musicManager.PlayBackgroundMusic();
         ResetGame();
         InGameUIDocument.SetActive(true);
         MainMenuUIDocument.SetActive(false);
@@ -88,6 +92,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleMainMenu()
     {
+        soundManager.PlayButtonClick();
         MainMenuUIDocument.SetActive(true);
         GameOverUIDocument.SetActive(false);
     }
@@ -103,10 +108,7 @@ public class GameManager : MonoBehaviour
         //wait for sound to finish
         if (playerHealth.GetHealthPoints() == 0)
         {
-            PauseGame();
-            GameOverUIDocument.SetActive(true);
-            InGameUIDocument.SetActive(false);
-            GameOverUIDocument.GetComponent<FinalScoreLabel>().UpdateScore(scoreManager.GetScore());
+            HandleGameOver();   
         }
         RespawnPlayer();
         playerMovement.UnFreezePlayer();
@@ -132,6 +134,15 @@ public class GameManager : MonoBehaviour
             DestroyStaticPlayers();
             ResetGoals();
         }
+    }
+
+    private void HandleGameOver()
+    {
+        musicManager.StopBackgroundMusic();
+        PauseGame();
+        GameOverUIDocument.SetActive(true);
+        InGameUIDocument.SetActive(false);
+        GameOverUIDocument.GetComponent<FinalScoreLabel>().UpdateScore(scoreManager.GetScore());
     }
 
     // Private Helper Functions

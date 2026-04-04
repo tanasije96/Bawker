@@ -6,6 +6,8 @@ public class SoundManager : MonoBehaviour
     private Coroutine musicCoroutine;
     [SerializeField] private AudioClip failureClip;
     [SerializeField] private AudioClip successClip;
+    [SerializeField] private AudioClip buttonClip;
+    [SerializeField] private AudioClip backgroundMusicClip;
 
     public static SoundManager Instance;
 
@@ -35,6 +37,11 @@ public class SoundManager : MonoBehaviour
     public void PlaySuccess()
     {
         audioSource.PlayOneShot(successClip);
+    }
+
+    public void PlayButtonClick()
+    {
+        audioSource.PlayOneShot(buttonClip);
     }
     
 }
