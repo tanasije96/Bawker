@@ -196,7 +196,8 @@ public class GameManager : MonoBehaviour
 
     private void SpawnStaticPlayer(GameObject goal)
     {
-        GameObject staticPlayer = Instantiate(playerPrefab, goal.transform.position, goal.transform.rotation);
+        Transform top = goal.transform.Find("Top");
+        GameObject staticPlayer = Instantiate(playerPrefab, top.transform.position, top.transform.rotation);
         staticPlayer.GetComponent<PlayerMovement>().enabled = false;
         staticPlayer.GetComponent<Collider>().enabled = false;
         staticPlayer.GetComponent<Rigidbody>().isKinematic = true;
