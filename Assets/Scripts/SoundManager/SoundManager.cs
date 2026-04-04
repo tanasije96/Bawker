@@ -3,7 +3,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     private AudioSource audioSource;
-    private Coroutine musicCoroutine;
+
     [SerializeField] private AudioClip failureClip;
     [SerializeField] private AudioClip successClip;
     [SerializeField] private AudioClip buttonClip;
@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySuccess()
     {
-        audioSource.PlayOneShot(successClip);
+        audioSource.PlayOneShot(successClip, 1.5f);
     }
 
     public void PlayButtonClick()

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -99,21 +100,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleLoseLife(GameObject enemy)
     {
-        soundManager.PlayFailure();
-        timer.StopTimer();
-        playerAnimator.SetTrigger("Damage Taken");
-        playerHealth.TakeDamage();
-        InGameUIDocument.GetComponent<InGameUI>().UpdateHealth(playerHealth.GetHealthPoints());
-        playerMovement.FreezePlayer();
-        //wait for sound to finish
-        if (playerHealth.GetHealthPoints() == 0)
-        {
-            HandleGameOver();   
-        }
-        RespawnPlayer();
-        playerMovement.UnFreezePlayer();
-        timer.ResetTimer();
-        timer.StartTimer();
+        StartCoroutine(HandleLoseLifeCoroutine());
     }
 
     private void HandleGoalReached(GameObject goal)
@@ -143,6 +130,31 @@ public class GameManager : MonoBehaviour
         GameOverUIDocument.SetActive(true);
         InGameUIDocument.SetActive(false);
         GameOverUIDocument.GetComponent<FinalScoreLabel>().UpdateScore(scoreManager.GetScore());
+    }
+
+    // Coroutines
+    private IEnumerator HandleLoseLifeCoroutine()
+    {
+        musicManager.StopBackgroundMusic();
+        soundManager.PlayFailure();
+        timer.StopTimer();
+        playerAnimator.SetTrigger("Damage Taken");
+        playerHealth.TakeDamage();
+        InGameUIDocument.GetComponent<InGameUI>().UpdateHealth(playerHealth.GetHealthPoints());
+        playerMovement.FreezePlayer();
+
+        yield return new WaitForSeconds(soundManager.GetFailureClipLength());  
+        
+        if (playerHealth.GetHealthPoints() == 0)
+        {
+            HandleGameOver();   
+        }
+        RespawnPlayer();
+        playerAnimator.SetTrigger("Player Respawned");
+        musicManager.PlayBackgroundMusic();
+        playerMovement.UnFreezePlayer();
+        timer.ResetTimer();
+        timer.StartTimer();
     }
 
     // Private Helper Functions
