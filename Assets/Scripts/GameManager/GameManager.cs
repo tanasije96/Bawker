@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -105,22 +106,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleGoalReached(GameObject goal)
     {
-        soundManager.PlaySuccess();
-        timer.StopTimer();
-        playerMovement.FreezePlayer();
-        UpdateInGameScore();
-        RespawnPlayer();
-        playerMovement.UnFreezePlayer();
-        timer.ResetTimer();
-        timer.StartTimer();
-        DeactivateGoal(goal);
-        currentGoalCount++;
-        SpawnStaticPlayer(goal);
-        if (currentGoalCount == totalGoalCount)
-        {
-            DestroyStaticPlayers();
-            ResetGoals();
-        }
+        StartCoroutine(HandleGoalReachedCoroutine(goal));
     }
 
     private void HandleGameOver()
@@ -155,6 +141,33 @@ public class GameManager : MonoBehaviour
         playerMovement.UnFreezePlayer();
         timer.ResetTimer();
         timer.StartTimer();
+    }
+
+    private IEnumerator HandleGoalReachedCoroutine(GameObject goal)
+    {
+        musicManager.StopBackgroundMusic();
+        soundManager.PlaySuccess();
+        timer.StopTimer();
+        playerMovement.FreezePlayer();
+        player.GetComponentsInChildren<SkinnedMeshRenderer>().ToList().ForEach(r => r.enabled = false);
+        UpdateInGameScore();
+        SpawnStaticPlayer(goal);
+
+        yield return new WaitForSeconds(soundManager.GetSuccessClipLength()); 
+
+        RespawnPlayer();
+        player.GetComponentsInChildren<SkinnedMeshRenderer>().ToList().ForEach(r => r.enabled = true);
+        musicManager.PlayBackgroundMusic();
+        playerMovement.UnFreezePlayer();
+        timer.ResetTimer();
+        timer.StartTimer();
+        DeactivateGoal(goal);
+        currentGoalCount++;
+        if (currentGoalCount == totalGoalCount)
+        {
+            DestroyStaticPlayers();
+            ResetGoals();
+        }
     }
 
     // Private Helper Functions

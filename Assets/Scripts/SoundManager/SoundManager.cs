@@ -34,6 +34,11 @@ public class SoundManager : MonoBehaviour
         return failureClip.length;
     }
 
+    public float GetSuccessClipLength()
+    {
+        return successClip.length;
+    }
+
     public void PlaySuccess()
     {
         audioSource.PlayOneShot(successClip, 1.5f);
