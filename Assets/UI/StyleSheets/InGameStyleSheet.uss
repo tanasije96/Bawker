@@ -4,4 +4,33 @@
 .LabelStyle {
     font-size: 100%;
     -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/UI/Font/PopHappinessStd-EB.ttf?fileID=12800000&guid=8e0ada50739e1a34ab20ba47b4ca59f0&type=3#PopHappinessStd-EB");
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(26, 26, 26);
+}
+
+.BarStyle {
+    -unity-font-definition: url("project://database/Assets/UI/Font/PopHappinessStd-EB.ttf?fileID=12800000&guid=8e0ada50739e1a34ab20ba47b4ca59f0&type=3#PopHappinessStd-EB");
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(26, 26, 26);
+}
+
+.unity-progress-bar__progress {
+    background-color: rgb(141, 215, 58);
+    border-radius: 10px;
+}
+
+.unity-progress-bar__background {
+    border-radius: 12px;
+    background-color: rgb(26, 26, 26);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
 }
