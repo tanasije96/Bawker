@@ -127,7 +127,8 @@ public class GameManager : MonoBehaviour
         soundManager.PlayFailure();
         timer.StopTimer();
         playerAnimator.SetTrigger("Damage Taken");
-        Instantiate(hitEffectPrefab, new Vector3(player.transform.position.x,0,player.transform.position.z), Quaternion.identity);
+        GameObject effect = Instantiate(hitEffectPrefab, new Vector3(player.transform.position.x,0,player.transform.position.z), Quaternion.identity);
+        Destroy(effect, soundManager.GetFailureClipLength());
         Debug.Log("Sparkle");
         playerHealth.TakeDamage();
         InGameUIDocument.GetComponent<InGameUI>().UpdateHealth(playerHealth.GetHealthPoints());
@@ -157,7 +158,8 @@ public class GameManager : MonoBehaviour
         UpdateInGameScore();
         SpawnStaticPlayer(goal);
         Transform top = goal.transform.Find("Top");
-        Instantiate(successEffectPrefab, new Vector3(top.transform.position.x,0,top.transform.position.z), Quaternion.identity);
+        GameObject effect = Instantiate(successEffectPrefab, new Vector3(top.transform.position.x,0,top.transform.position.z), Quaternion.identity);
+        Destroy(effect, soundManager.GetSuccessClipLength());
 
         yield return new WaitForSeconds(soundManager.GetSuccessClipLength()); 
 

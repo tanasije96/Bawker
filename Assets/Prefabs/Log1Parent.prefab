@@ -98,6 +98,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Log1
       objectReference: {fileID: 0}
+    - target: {fileID: 5415731670077606876, guid: de56f59a4256a6e43833ef44bc66477f, type: 3}
+      propertyPath: m_Size.y
+      value: 0.45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
