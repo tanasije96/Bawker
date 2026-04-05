@@ -25,6 +25,13 @@ public class MusicManager : MonoBehaviour
 
     public void PlayMainMenuMusic()
     {
+        StartCoroutine(PlayMainMenuMusicCoroutine(0.5f));
+    }
+
+    private IEnumerator PlayMainMenuMusicCoroutine(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);  
+
         audioSource.clip = mainMenuMusicClip;
         audioSource.loop = true;
         audioSource.volume = 0.3f;
