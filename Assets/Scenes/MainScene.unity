@@ -1260,6 +1260,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1168622015}
   player: {fileID: 2954751659016972005}
   playerPrefab: {fileID: 6175252606022766138, guid: 6a348930d9680204fb3904cba43bfbe1, type: 3}
+  musicManager: {fileID: 1936736126}
 --- !u!1 &1429093625
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,6 +1567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicManager
   backgroundMusicClip: {fileID: 8300000, guid: 7d726d8fe9c70a546b9281f5433b5cd6, type: 3}
+  mainMenuMusicClip: {fileID: 8300000, guid: cb1c0fa5ddfe9064da50432126331c6c, type: 3}
 --- !u!4 &1936736127
 Transform:
   m_ObjectHideFlags: 0

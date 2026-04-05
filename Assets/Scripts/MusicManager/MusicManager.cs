@@ -5,6 +5,7 @@ public class MusicManager : MonoBehaviour
 {
     private AudioSource audioSource;
     [SerializeField] private AudioClip backgroundMusicClip;
+    [SerializeField] private AudioClip mainMenuMusicClip;
 
     public static MusicManager Instance;
 
@@ -19,6 +20,15 @@ public class MusicManager : MonoBehaviour
     void OnEnable()
     {
         audioSource = GetComponent<AudioSource>();
+        PlayMainMenuMusic();
+    }
+
+    public void PlayMainMenuMusic()
+    {
+        audioSource.clip = mainMenuMusicClip;
+        audioSource.loop = true;
+        audioSource.volume = 0.3f;
+        audioSource.Play();
     }
 
     public void PlayBackgroundMusic()

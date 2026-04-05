@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private MusicManager musicManager;
 
     private PlayerHealth playerHealth;
     private PlayerMovement playerMovement;
@@ -20,7 +21,6 @@ public class GameManager : MonoBehaviour
     private ScoreManager scoreManager;
     private Timer timer;
     private SoundManager soundManager;
-    private MusicManager musicManager;
 
     private int totalGoalCount;
     private int currentGoalCount = 0;
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         scoreManager = ScoreManager.Instance;
         timer = Timer.Instance;
         soundManager = SoundManager.Instance;
-        musicManager = MusicManager.Instance;
+        //musicManager = MusicManager.Instance;
     }
 
     void OnDisable()
@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
     private void HandleStartGame()
     {
         soundManager.PlayButtonClick();
+        musicManager.StopBackgroundMusic();
         musicManager.PlayBackgroundMusic();
         ResetGame();
         InGameUIDocument.SetActive(true);
@@ -95,6 +96,7 @@ public class GameManager : MonoBehaviour
     private void HandleMainMenu()
     {
         soundManager.PlayButtonClick();
+        musicManager.PlayMainMenuMusic();
         MainMenuUIDocument.SetActive(true);
         GameOverUIDocument.SetActive(false);
     }
