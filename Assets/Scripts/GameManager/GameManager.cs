@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject hitEffectPrefab;
 
     private PlayerHealth playerHealth;
     private PlayerMovement playerMovement;
@@ -125,6 +126,8 @@ public class GameManager : MonoBehaviour
         soundManager.PlayFailure();
         timer.StopTimer();
         playerAnimator.SetTrigger("Damage Taken");
+        Instantiate(hitEffectPrefab, new Vector3(player.transform.position.x,0,player.transform.position.z), Quaternion.identity);
+        Debug.Log("Sparkle");
         playerHealth.TakeDamage();
         InGameUIDocument.GetComponent<InGameUI>().UpdateHealth(playerHealth.GetHealthPoints());
         playerMovement.FreezePlayer();
