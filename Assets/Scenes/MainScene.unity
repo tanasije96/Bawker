@@ -1269,6 +1269,7 @@ MonoBehaviour:
   player: {fileID: 2954751659016972005}
   playerPrefab: {fileID: 6175252606022766138, guid: 6a348930d9680204fb3904cba43bfbe1, type: 3}
   hitEffectPrefab: {fileID: 8391560763611217473, guid: 9b2d3af4b9175e04d86219c72a5d78d1, type: 3}
+  waterEffectPrefab: {fileID: 3440070767369948083, guid: 1f9ba878ab2556f408d29bfbe2b0d6eb, type: 3}
   successEffectPrefab: {fileID: 6571180681852336942, guid: c514caf318cc19449a31c92676af3560, type: 3}
 --- !u!1 &1429093625
 GameObject:

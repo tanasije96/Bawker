@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject hitEffectPrefab;
+    [SerializeField] private GameObject waterEffectPrefab;
     [SerializeField] private GameObject successEffectPrefab;
 
     private PlayerHealth playerHealth;
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
         EnemyCollisionEvent.OnEnemyCollision += HandleLoseLife;
         Timer.OnTimerEnd += HandleLoseLife;
         GoalReachedEvent.OnGoalReached += HandleGoalReached;
-        WaterCollisionEvent.OnWaterCollision += HandleLoseLife;
+        WaterCollisionEvent.OnWaterCollision += HandleFallInWater;
 
         playerHealth = player.GetComponent<PlayerHealth>();
         playerMovement = player.GetComponent<PlayerMovement>();
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour
         EnemyCollisionEvent.OnEnemyCollision -= HandleLoseLife;
         Timer.OnTimerEnd -= HandleLoseLife;
         GoalReachedEvent.OnGoalReached -= HandleGoalReached;
-        WaterCollisionEvent.OnWaterCollision -= HandleLoseLife;
+        WaterCollisionEvent.OnWaterCollision -= HandleFallInWater;
     }
 
     // Event Handlers
@@ -101,6 +102,15 @@ public class GameManager : MonoBehaviour
         GameOverUIDocument.SetActive(false);
     }
 
+    private void HandleGameOver()
+    {
+        MusicManager.Instance.StopBackgroundMusic();
+        PauseGame();
+        GameOverUIDocument.SetActive(true);
+        InGameUIDocument.SetActive(false);
+        GameOverUIDocument.GetComponent<FinalScoreLabel>().UpdateScore(scoreManager.GetScore());
+    }
+
     private void HandleLoseLife(GameObject enemy)
     {
         StartCoroutine(HandleLoseLifeCoroutine());
@@ -111,13 +121,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(HandleGoalReachedCoroutine(goal));
     }
 
-    private void HandleGameOver()
+    private void HandleFallInWater(GameObject water)
     {
-        MusicManager.Instance.StopBackgroundMusic();
-        PauseGame();
-        GameOverUIDocument.SetActive(true);
-        InGameUIDocument.SetActive(false);
-        GameOverUIDocument.GetComponent<FinalScoreLabel>().UpdateScore(scoreManager.GetScore());
+        StartCoroutine(HandleFallInWaterCoroutine());
     }
 
     // Coroutines
@@ -129,7 +135,6 @@ public class GameManager : MonoBehaviour
         playerAnimator.SetTrigger("Damage Taken");
         GameObject effect = Instantiate(hitEffectPrefab, new Vector3(player.transform.position.x,0,player.transform.position.z), Quaternion.identity);
         Destroy(effect, soundManager.GetFailureClipLength());
-        Debug.Log("Sparkle");
         playerHealth.TakeDamage();
         InGameUIDocument.GetComponent<InGameUI>().UpdateHealth(playerHealth.GetHealthPoints());
         playerMovement.FreezePlayer();
@@ -161,7 +166,7 @@ public class GameManager : MonoBehaviour
         GameObject effect = Instantiate(successEffectPrefab, new Vector3(top.transform.position.x,0,top.transform.position.z), Quaternion.identity);
         Destroy(effect, soundManager.GetSuccessClipLength());
 
-        yield return new WaitForSeconds(soundManager.GetSuccessClipLength()); 
+        yield return new WaitForSeconds(soundManager.GetSuccessClipLength()+0.8f); 
 
         RespawnPlayer();
         player.GetComponentsInChildren<SkinnedMeshRenderer>().ToList().ForEach(r => r.enabled = true);
@@ -176,6 +181,33 @@ public class GameManager : MonoBehaviour
             DestroyStaticPlayers();
             ResetGoals();
         }
+    }
+
+    private IEnumerator HandleFallInWaterCoroutine()
+    {
+        MusicManager.Instance.StopBackgroundMusic();
+        soundManager.PlayFailure();
+        timer.StopTimer();
+        player.GetComponentsInChildren<SkinnedMeshRenderer>().ToList().ForEach(r => r.enabled = false);
+        GameObject effect = Instantiate(waterEffectPrefab, new Vector3(player.transform.position.x,0,player.transform.position.z), Quaternion.identity);
+        Destroy(effect, soundManager.GetFailureClipLength());
+        playerHealth.TakeDamage();
+        InGameUIDocument.GetComponent<InGameUI>().UpdateHealth(playerHealth.GetHealthPoints());
+        playerMovement.FreezePlayer();
+
+        yield return new WaitForSeconds(soundManager.GetFailureClipLength());  
+        
+        if (playerHealth.GetHealthPoints() == 0)
+        {
+            HandleGameOver();   
+        }
+        RespawnPlayer();
+        player.GetComponentsInChildren<SkinnedMeshRenderer>().ToList().ForEach(r => r.enabled = true);
+        playerAnimator.SetTrigger("Player Respawned");
+        MusicManager.Instance.PlayBackgroundMusic();
+        playerMovement.UnFreezePlayer();
+        timer.ResetTimer();
+        timer.StartTimer();
     }
 
     // Private Helper Functions
