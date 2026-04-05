@@ -66,6 +66,14 @@
     padding-right: 15px;
     padding-bottom: 15px;
     padding-left: 15px;
+    transition-property: -unity-background-image-tint-color, color;
+    transition-duration: 0.2s;
+}
+
+.ButtonStyle:hover,
+.ButtonStyle:focus {
+    -unity-background-image-tint-color: rgb(199, 199, 199);
+    color: rgb(199, 199, 199);
 }
 
 .ButtonStyle:active {
