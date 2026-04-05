@@ -1260,7 +1260,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 1168622015}
   player: {fileID: 2954751659016972005}
   playerPrefab: {fileID: 6175252606022766138, guid: 6a348930d9680204fb3904cba43bfbe1, type: 3}
-  musicManager: {fileID: 1936736126}
 --- !u!1 &1429093625
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,7 +1576,7 @@ Transform:
   m_GameObject: {fileID: 1936736125}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.92366, y: 0.84812, z: 4.44676}
+  m_LocalPosition: {x: -0.92366, y: 0, z: 4.44676}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

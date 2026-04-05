@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private MusicManager musicManager;
 
     private PlayerHealth playerHealth;
     private PlayerMovement playerMovement;
@@ -66,7 +65,6 @@ public class GameManager : MonoBehaviour
         scoreManager = ScoreManager.Instance;
         timer = Timer.Instance;
         soundManager = SoundManager.Instance;
-        //musicManager = MusicManager.Instance;
     }
 
     void OnDisable()
@@ -84,9 +82,9 @@ public class GameManager : MonoBehaviour
     private void HandleStartGame()
     {
         soundManager.PlayButtonClick();
-        musicManager.StopBackgroundMusic();
-        musicManager.PlayBackgroundMusic();
         ResetGame();
+        MusicManager.Instance.StopBackgroundMusic();
+        MusicManager.Instance.PlayBackgroundMusic();
         InGameUIDocument.SetActive(true);
         MainMenuUIDocument.SetActive(false);
         GameOverUIDocument.SetActive(false);
@@ -96,7 +94,7 @@ public class GameManager : MonoBehaviour
     private void HandleMainMenu()
     {
         soundManager.PlayButtonClick();
-        musicManager.PlayMainMenuMusic();
+        MusicManager.Instance.PlayMainMenuMusic();
         MainMenuUIDocument.SetActive(true);
         GameOverUIDocument.SetActive(false);
     }
@@ -113,7 +111,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleGameOver()
     {
-        musicManager.StopBackgroundMusic();
+        MusicManager.Instance.StopBackgroundMusic();
         PauseGame();
         GameOverUIDocument.SetActive(true);
         InGameUIDocument.SetActive(false);
@@ -123,7 +121,7 @@ public class GameManager : MonoBehaviour
     // Coroutines
     private IEnumerator HandleLoseLifeCoroutine()
     {
-        musicManager.StopBackgroundMusic();
+        MusicManager.Instance.StopBackgroundMusic();
         soundManager.PlayFailure();
         timer.StopTimer();
         playerAnimator.SetTrigger("Damage Taken");
@@ -139,7 +137,7 @@ public class GameManager : MonoBehaviour
         }
         RespawnPlayer();
         playerAnimator.SetTrigger("Player Respawned");
-        musicManager.PlayBackgroundMusic();
+        MusicManager.Instance.PlayBackgroundMusic();
         playerMovement.UnFreezePlayer();
         timer.ResetTimer();
         timer.StartTimer();
@@ -147,7 +145,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator HandleGoalReachedCoroutine(GameObject goal)
     {
-        musicManager.StopBackgroundMusic();
+        MusicManager.Instance.StopBackgroundMusic();
         soundManager.PlaySuccess();
         timer.StopTimer();
         playerMovement.FreezePlayer();
@@ -159,7 +157,7 @@ public class GameManager : MonoBehaviour
 
         RespawnPlayer();
         player.GetComponentsInChildren<SkinnedMeshRenderer>().ToList().ForEach(r => r.enabled = true);
-        musicManager.PlayBackgroundMusic();
+        MusicManager.Instance.PlayBackgroundMusic();
         playerMovement.UnFreezePlayer();
         timer.ResetTimer();
         timer.StartTimer();
