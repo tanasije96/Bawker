@@ -185,19 +185,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5839281939064218902, guid: 5ed59e74e6f341b4db9daaa6742fde02, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5839281939064218902, guid: 5ed59e74e6f341b4db9daaa6742fde02, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5839281939064218902, guid: 5ed59e74e6f341b4db9daaa6742fde02, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5839281939064218902, guid: 5ed59e74e6f341b4db9daaa6742fde02, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5839281939064218902, guid: 5ed59e74e6f341b4db9daaa6742fde02, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -205,7 +205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5839281939064218902, guid: 5ed59e74e6f341b4db9daaa6742fde02, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 5839281939064218902, guid: 5ed59e74e6f341b4db9daaa6742fde02, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -412,7 +412,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5839281939064218902, guid: 5ed59e74e6f341b4db9daaa6742fde02, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.77
+      value: -2.77
       objectReference: {fileID: 0}
     - target: {fileID: 5839281939064218902, guid: 5ed59e74e6f341b4db9daaa6742fde02, type: 3}
       propertyPath: m_LocalPosition.y
@@ -729,8 +729,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   failureClip: {fileID: 8300000, guid: 1208d94ad7570a54194d727581387bb8, type: 3}
   successClip: {fileID: 8300000, guid: 70e6bdd425bfc8c4db79f7b071ec0f46, type: 3}
+  victoryClip: {fileID: 8300000, guid: fcff36dd26b4e804cacf5f38d04d3c95, type: 3}
   buttonClip: {fileID: 8300000, guid: eba645b0abc44994a94c668f78300c7c, type: 3}
-  backgroundMusicClip: {fileID: 8300000, guid: 7d726d8fe9c70a546b9281f5433b5cd6, type: 3}
 --- !u!82 &662813587
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1211,7 +1211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5348842774933327599, guid: 89865c475c346c54abde2be19c47c0f9, type: 3}
       propertyPath: m_Name
-      value: Spawner (1)
+      value: Log Spawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1271,6 +1271,7 @@ MonoBehaviour:
   hitEffectPrefab: {fileID: 8391560763611217473, guid: 9b2d3af4b9175e04d86219c72a5d78d1, type: 3}
   waterEffectPrefab: {fileID: 3440070767369948083, guid: 1f9ba878ab2556f408d29bfbe2b0d6eb, type: 3}
   successEffectPrefab: {fileID: 6571180681852336942, guid: c514caf318cc19449a31c92676af3560, type: 3}
+  victoryEffectPrefab: {fileID: 3296252274598245235, guid: aff1e2a5a04c2da4fbd7891d230b53ee, type: 3}
 --- !u!1 &1429093625
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,7 +1770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5348842774933327599, guid: 89865c475c346c54abde2be19c47c0f9, type: 3}
       propertyPath: m_Name
-      value: Spawner
+      value: Car Spawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

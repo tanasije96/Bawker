@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject hitEffectPrefab;
     [SerializeField] private GameObject waterEffectPrefab;
     [SerializeField] private GameObject successEffectPrefab;
+    [SerializeField] private GameObject victoryEffectPrefab;
 
     private PlayerHealth playerHealth;
     private PlayerMovement playerMovement;
@@ -118,7 +119,15 @@ public class GameManager : MonoBehaviour
 
     private void HandleGoalReached(GameObject goal)
     {
-        StartCoroutine(HandleGoalReachedCoroutine(goal));
+        currentGoalCount++;
+        if (currentGoalCount == totalGoalCount)
+        {
+            StartCoroutine(HandleVictoryCoroutine(goal));
+        }
+        else
+        {
+            StartCoroutine(HandleGoalReachedCoroutine(goal));   
+        }
     }
 
     private void HandleFallInWater(GameObject water)
@@ -175,12 +184,34 @@ public class GameManager : MonoBehaviour
         timer.ResetTimer();
         timer.StartTimer();
         DeactivateGoal(goal);
-        currentGoalCount++;
-        if (currentGoalCount == totalGoalCount)
+    }
+
+    private IEnumerator HandleVictoryCoroutine(GameObject goal)
+    {
+        MusicManager.Instance.StopBackgroundMusic();
+        soundManager.PlayVictory();
+        timer.StopTimer();
+        playerMovement.FreezePlayer();
+        player.GetComponentsInChildren<SkinnedMeshRenderer>().ToList().ForEach(r => r.enabled = false);
+        UpdateInGameScore();
+        SpawnStaticPlayer(goal);
+        foreach (GameObject localGoal in goals)
         {
-            DestroyStaticPlayers();
-            ResetGoals();
+            Transform top = localGoal.transform.Find("Top");
+            GameObject effect = Instantiate(victoryEffectPrefab, new Vector3(top.transform.position.x,0,top.transform.position.z), Quaternion.identity);
+            Destroy(effect, soundManager.GetVictoryClipLength()+0.5f);
         }
+
+        yield return new WaitForSeconds(soundManager.GetVictoryClipLength()+0.5f); 
+
+        RespawnPlayer();
+        player.GetComponentsInChildren<SkinnedMeshRenderer>().ToList().ForEach(r => r.enabled = true);
+        MusicManager.Instance.PlayBackgroundMusic();
+        playerMovement.UnFreezePlayer();
+        timer.ResetTimer();
+        timer.StartTimer();
+        DestroyStaticPlayers();
+        ResetGoals();  
     }
 
     private IEnumerator HandleFallInWaterCoroutine()

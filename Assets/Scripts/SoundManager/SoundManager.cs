@@ -6,8 +6,8 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioClip failureClip;
     [SerializeField] private AudioClip successClip;
+    [SerializeField] private AudioClip victoryClip;
     [SerializeField] private AudioClip buttonClip;
-    [SerializeField] private AudioClip backgroundMusicClip;
 
     public static SoundManager Instance;
 
@@ -24,11 +24,6 @@ public class SoundManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void PlayFailure()
-    {
-        audioSource.PlayOneShot(failureClip);
-    }
-
     public float GetFailureClipLength()
     {
         return failureClip.length;
@@ -39,9 +34,24 @@ public class SoundManager : MonoBehaviour
         return successClip.length;
     }
 
+    public float GetVictoryClipLength()
+    {
+        return victoryClip.length;
+    }
+
     public void PlaySuccess()
     {
         audioSource.PlayOneShot(successClip, 1.5f);
+    }
+
+    public void PlayFailure()
+    {
+        audioSource.PlayOneShot(failureClip);
+    }
+
+    public void PlayVictory()
+    {
+        audioSource.PlayOneShot(victoryClip, 0.5f);
     }
 
     public void PlayButtonClick()

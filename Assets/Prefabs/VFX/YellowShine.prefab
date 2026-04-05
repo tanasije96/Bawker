@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7938384439400024400}
   - component: {fileID: 7938384439400024401}
   m_Layer: 0
-  m_Name: Shine_ellow
+  m_Name: YellowShine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
