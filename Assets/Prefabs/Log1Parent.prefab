@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc384a6f0fe26541b7520f7dece768b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileMovement
-  speed: 3
+  speed: 2
 --- !u!1001 &2078691054568725409
 PrefabInstance:
   m_ObjectHideFlags: 0

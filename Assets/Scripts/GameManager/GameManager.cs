@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject hitEffectPrefab;
+    [SerializeField] private GameObject successEffectPrefab;
 
     private PlayerHealth playerHealth;
     private PlayerMovement playerMovement;
@@ -155,6 +156,8 @@ public class GameManager : MonoBehaviour
         player.GetComponentsInChildren<SkinnedMeshRenderer>().ToList().ForEach(r => r.enabled = false);
         UpdateInGameScore();
         SpawnStaticPlayer(goal);
+        Transform top = goal.transform.Find("Top");
+        Instantiate(successEffectPrefab, new Vector3(top.transform.position.x,0,top.transform.position.z), Quaternion.identity);
 
         yield return new WaitForSeconds(soundManager.GetSuccessClipLength()); 
 
