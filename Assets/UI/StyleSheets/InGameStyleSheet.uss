@@ -2,7 +2,7 @@
 }
 
 .LabelStyle {
-    font-size: 100%;
+    font-size: 150%;
     -unity-font-style: bold;
     -unity-font-definition: url("project://database/Assets/UI/Font/PopHappinessStd-EB.ttf?fileID=12800000&guid=8e0ada50739e1a34ab20ba47b4ca59f0&type=3#PopHappinessStd-EB");
     color: rgb(255, 255, 255);
