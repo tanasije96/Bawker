@@ -8,6 +8,7 @@
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(26, 26, 26);
+    padding-left: 10px;
 }
 
 .BarStyle {
@@ -15,13 +16,16 @@
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(26, 26, 26);
-    font-size: 125%;
-    height: 10%;
+    font-size: 150%;
 }
 
 .unity-progress-bar__progress {
     background-color: rgb(141, 215, 58);
     border-radius: 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 
 .unity-progress-bar__background {
@@ -35,4 +39,15 @@
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
+    border-top-left-radius: 17px;
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    border-bottom-left-radius: 17px;
+}
+
+
+
+.unity-progress-bar__container {
+    min-height: 36px;
+    max-height: 36px;
 }
