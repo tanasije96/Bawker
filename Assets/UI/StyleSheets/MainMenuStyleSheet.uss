@@ -15,7 +15,7 @@
 }
 
 .TitleStyle {
-    font-size: 450%;
+    font-size: 550%;
     -unity-text-align: middle-center;
     -unity-font-definition: url("project://database/Assets/UI/Font/PopHappinessStd-EB.ttf?fileID=12800000&guid=8e0ada50739e1a34ab20ba47b4ca59f0&type=3#PopHappinessStd-EB");
     -unity-font-style: normal;
@@ -30,7 +30,7 @@
 }
 
 .GameOverTitleStyle {
-    font-size: 450%;
+    font-size: 550%;
     -unity-text-align: middle-center;
     -unity-font-definition: url("project://database/Assets/UI/Font/PopHappinessStd-EB.ttf?fileID=12800000&guid=8e0ada50739e1a34ab20ba47b4ca59f0&type=3#PopHappinessStd-EB");
     -unity-font-style: normal;
@@ -45,7 +45,7 @@
 }
 
 .ButtonStyle {
-    font-size: 200%;
+    font-size: 300%;
     flex-direction: column;
     flex-basis: auto;
     aspect-ratio: auto;
@@ -92,7 +92,7 @@
 
 .LabelStyle {
     -unity-font-style: bold;
-    font-size: 180%;
+    font-size: 250%;
     -unity-font-definition: url("project://database/Assets/UI/Font/PopHappinessStd-EB.ttf?fileID=12800000&guid=8e0ada50739e1a34ab20ba47b4ca59f0&type=3#PopHappinessStd-EB");
     color: rgb(255, 255, 255);
     -unity-text-outline-color: rgb(26, 26, 26);
