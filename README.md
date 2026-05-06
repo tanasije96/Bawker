@@ -2,6 +2,9 @@
 
 A simple 2D arcade-style Frogger clone built in Unity as a personal learning project. The goal is to recreate the classic Frogger gameplay with basic movement, obstacles, and level progression.
 
+<img width="1281" height="710" alt="image" src="https://github.com/user-attachments/assets/c47c8ab4-e1a1-44db-830d-d9b0d8a9ab16" />
+<img width="1269" height="712" alt="image" src="https://github.com/user-attachments/assets/88877522-2c87-4471-809f-417802e386ff" />
+
 ---
 
 ## 🎮 How to Play
